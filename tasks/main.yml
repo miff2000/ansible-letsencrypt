@@ -20,7 +20,7 @@
       name: "{{ item }}"
       state: latest
     with_items:
-      - cron
+      - crond
     when: ansible_distribution == "Fedora"
 
   - name: install certbot (Debian jessie)
