@@ -8,17 +8,23 @@
   become: yes
 
 - name: update the apt cache
-  apt: update_cache=yes cache_valid_time=7200
+  apt:
+    update_cache: yes
+    cache_valid_time: 7200
   become: yes
 
 # if jessie-backports has been added we should update the cache
 - name: force update the apt cache
-  apt: update_cache=yes
+  apt:
+    update_cache: yes
   when: jbp_added.changed
   become: yes
 
 - name: install certbot from backports
-  apt: pkg={{item}} default_release=jessie-backports state=latest
+  apt:
+    pkg: "{{item}}"
+    default_release: jessie-backports
+    state: latest
   with_items:
     - certbot
   become: yes

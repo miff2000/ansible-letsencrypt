@@ -1,6 +1,8 @@
 ---
 - name: update the apt cache
-  apt: update_cache=yes cache_valid_time=7200
+  apt:
+    update_cache: yes
+    cache_valid_time: 7200
   become: yes
 
 - name: add certbot apt ppa repository
@@ -9,7 +11,9 @@
   become: yes
 
 - name: install certbot ubuntu
-  apt: pkg={{item}} state=latest
+  apt:
+    pkg: "{{item}}"
+    state: latest
   with_items:
     - certbot
   become: yes
