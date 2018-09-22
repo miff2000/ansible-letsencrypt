@@ -8,7 +8,7 @@
     name: "{{ item }}"
     state: present
   become: yes
-  with_items: "{{ letsencrypt_depends | default([]) }}"
+  with_items: "{{ letsencrypt_via_pip_dependencies | default([]) }}"
   tags: install
 
 - name: Install virtualenv

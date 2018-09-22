@@ -1,6 +1,6 @@
 ---
 
-letsencrypt_depends:
+letsencrypt_via_pip_dependencies:
       - python
       - python-devel
       - python-virtualenv

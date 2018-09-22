@@ -1,7 +1,7 @@
 ---
 
 virtualenv_package_name: virtualenv
-letsencrypt_depends:
+letsencrypt_via_pip_dependencies:
       - python
       - python-dev
       - python-virtualenv

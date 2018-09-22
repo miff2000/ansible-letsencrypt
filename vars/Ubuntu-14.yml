@@ -1,7 +1,7 @@
 --- # Ubuntu Trusty
 
 virtualenv_package_name: python-virtualenv
-letsencrypt_depends:
+letsencrypt_via_pip_dependencies:
       - python
       - python-dev
       - python-virtualenv
