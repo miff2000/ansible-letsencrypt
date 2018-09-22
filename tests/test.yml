@@ -1,0 +1,42 @@
+---
+- hosts: all
+
+  pre_tasks:
+
+    - name: TRAVIS TEST | Ensure multiverse repo is enabled
+      apt_repository:
+        repo: "{{item}}"
+        update_cache: false
+      register: multiverse_installed
+      when: ansible_distribution == 'Ubuntu'
+      with_items:
+        - 'deb http://archive.ubuntu.com/ubuntu {{ansible_distribution_release}} multiverse'
+        - 'deb-src http://archive.ubuntu.com/ubuntu {{ansible_distribution_release}} multiverse'
+        - 'deb http://archive.ubuntu.com/ubuntu {{ansible_distribution_release}}-updates multiverse'
+        - 'deb-src http://archive.ubuntu.com/ubuntu {{ansible_distribution_release}}-updates multiverse'
+
+    - apt:
+        update_cache: true
+      when: multiverse_installed is changed
+
+    - name: TRAVIS TEST | Ensure build dependencies are installed (RedHat)
+      package:
+        name: "{{ item }}"
+        state: present
+      with_items:
+        - "@Development tools"
+        - tar
+        - unzip
+        - sudo
+        - which
+      when: ansible_os_family == 'RedHat'
+
+  roles:
+    - {
+        role: role_under_test,
+        docker_test: true,
+        letsencrypt_email: admin@example.com,
+        letsencrypt_server: https://acme-staging.api.letsencrypt.org/directory,
+        letsencrypt_cert_domains: www.example.com
+      }
+

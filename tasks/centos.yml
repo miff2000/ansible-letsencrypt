@@ -1,0 +1,30 @@
+---
+- name: add EPEL repo for CentOS 6
+  yum:
+    name: https://dl.fedoraproject.org/pub/epel/epel-release-latest-6.noarch.rpm
+    state: present
+  when: ansible_distribution_major_version == "6"
+
+- name: add EPEL repo for CentOS 7
+  yum:
+    name: https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+    state: present
+  when: ansible_distribution_major_version == "7"
+
+- name: update YUM cache
+  yum:
+    update_cache: yes
+    state: latest
+
+- name: install certbot
+  yum:
+    name: "{{ item }}"
+    state: present
+    update_cache: yes
+  with_items:
+    - certbot
+  become: yes
+
+- name: change the path to letsencrypt
+  set_fact:
+    letsencrypt_path: "/usr/bin/letsencrypt"
