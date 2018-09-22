@@ -15,6 +15,14 @@
     when: virtualenv_package_name is not defined
     tags: install
 
+  - name: install required packages
+    dnf:
+      name: "{{ item }}"
+      state: latest
+    with_items:
+      - cron
+    when: ansible_distribution == "Fedora"
+
   - name: install certbot (Debian jessie)
     include: debian-jessie.yml
     when: ansible_distribution == "Debian" and ansible_distribution_release == "jessie"
@@ -46,9 +54,10 @@
     command: "{{ letsencrypt_command }} -a webroot --webroot-path {{ letsencrypt_webroot_path }} certonly"
     become: yes
     args:
-      creates: "/etc/letsencrypt/live/{{ letsencrypt_cert_domains[0] }}"
+      creates: "/etc/letsencrypt/live/{{ item }}"
     when: letsencrypt_authenticator == "webroot"
     when: not docker_test
+    with_items: letsencrypt_cert_domains
     ignore_errors: True
 
   - name: Attempt to get the certificate using the standalone authenticator (in case eg the webserver isn't running yet)
