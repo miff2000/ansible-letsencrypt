@@ -6,8 +6,8 @@ RUN apt-get update && \
     apt-get upgrade -y && \
     apt-get install -y software-properties-common git python-dev wget apt-transport-https libffi-dev libssl-dev systemd && \
     apt-get install -y python-pip && \
-    pip install -U pip && \
-    pip install ansible && \
+    pip install --user -U pip && \
+    pip install --user ansible && \
     mkdir -p /etc/ansible
 
 # setup tools 3.3 conflict
