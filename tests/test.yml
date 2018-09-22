@@ -31,12 +31,14 @@
         - which
       when: ansible_os_family == 'RedHat'
 
+  vars:
+    letsencrypt_cert_domains:
+      - www.example.com
   roles:
     - {
         role: role_under_test,
         docker_test: true,
         letsencrypt_email: admin@example.com,
-        letsencrypt_server: https://acme-staging.api.letsencrypt.org/directory,
-        letsencrypt_cert_domains: www.example.com
+        letsencrypt_server: "https://acme-staging.api.letsencrypt.org/directory",
       }
 
