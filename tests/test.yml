@@ -34,6 +34,7 @@
   vars:
     letsencrypt_cert_domains:
       - www.example.com
+      - www.example2.com
   roles:
     - {
         role: role_under_test,
