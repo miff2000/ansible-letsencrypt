@@ -23,6 +23,14 @@
       - cronie
     when: ansible_distribution == "Fedora"
 
+  - name: install required packages
+    yum:
+      name: "{{ item }}"
+      state: latest
+    with_items:
+      - crond
+    when: ansible_distribution == "CentOS"
+
   - name: install certbot (Debian jessie)
     include: debian-jessie.yml
     when: ansible_distribution == "Debian" and ansible_distribution_release == "jessie"
