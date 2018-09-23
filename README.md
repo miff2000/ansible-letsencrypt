@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/miff2000/ansible-letsencrypt.svg?branch=master)](https://travis-ci.org/miff2000/ansible-letsencrypt)
+
 # ansible-letsencrypt
 An ansible role to generate TLS certificates and get them signed by Let's Encrypt.
 
@@ -6,9 +8,15 @@ it will use the standalone authenticator. This is handy for generating certs on 
 the web server has been configured or even installed.
 
 # Supported platforms
-- Debian Jessie
-- Debian Stretch
-- Ubuntu Xenial
+- Ubuntu 14.04 LTS
+- Ubuntu 16.04 LTS
+- Ubuntu 18.04 LTS
+- Fedora 25
+- Fedora 26
+- Fedora 27
+- Fedora 28
+- CentOS 6
+- CentOS 7
 
 On other platforms this role will try to install letsencrypt using pip, which is not officially supported and may break over upgrades at least.
 
